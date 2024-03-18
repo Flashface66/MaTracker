@@ -65,4 +65,6 @@ INSERT INTO `admins` (`Aid`, `AdminName`, `AdminEmail`, `AdminPassword`, `type`)
 
 -- -- Insertion of initial data for `users`
 -- INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `phonenumber`, `companyname`, `email`, `password`, `type`) VALUES
--- (7, 'Yohance', 'Cockett
+-- (7, 'Yohance', 'Cockett', '876-845-8142', 'Wilkins Industries', 'admin@project.com', '$2y$10$rQQev2jvle8gk5Rlajhepesa/nQKYP4gS3UXZhJZai9jvRlBAyQjS', 'user');
+
+COMMIT;
