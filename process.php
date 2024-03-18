@@ -15,9 +15,9 @@
        $result = $stmt->fetch(PDO::FETCH_ASSOC);
    
        if ($result['EmailCount'] == 0) {
-           $sql = "INSERT INTO Users(firstname, lastname, phonenumber, companyname, email, password) VALUES(?,?,?,?,?,?)";
+           $sql = "INSERT INTO Users(firstname, lastname, phonenumber, companyname, email, password, type) VALUES(?,?,?,?,?,?,?)";
            $stmtinsert = $db->prepare($sql);
-           $result = $stmtinsert->execute([$firstname, $lastname, $phonenumber, $companyname, $email, $hash]);
+           $result = $stmtinsert->execute([$firstname, $lastname, $phonenumber, $companyname, $email, $hash, "user"]);
            if ($result){
                echo "You can now log in.";
        }else{

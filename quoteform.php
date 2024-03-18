@@ -10,7 +10,7 @@
            header("Location: login.php");
            
        }
-       if($_SESSION['userlogin']['type'] !== "QS"){
+       if($_SESSION['userlogin']['type'] !== "User"){
         // isn't admin, redirect them to a different page
         header("Location: index.php");
     }

@@ -1,19 +1,19 @@
 <?php
    session_start();
-       if(!isset($_SESSION['userlogin'])){
-           header("Location: login.php");
-       }
-   
-       if(isset($_GET['logout'])){
-           session_destroy();
-           unset($_SESSION);
-           header("Location: login.php");
-      
-        
-           
-       }
-      
-   ?>
+
+   if(isset($_GET['logout'])){
+      session_destroy();
+      unset($_SESSION);
+      header("Location: login.php");
+      exit(); // Ensure no further code is executed after logout
+   }
+
+   if(!isset($_SESSION['userlogin'])){
+      header("Location: login.php");
+      exit(); // Prevent further execution if not logged in
+   }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -36,43 +36,70 @@
                <li class="nav-item active">
                   <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="add_product.php">Manage Products</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="add_supplier.php">Manage Suppliers</a>
-               </li>
+                  <?php
+                     if($_SESSION['userlogin']['type'] == "User" or $_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='display_suppliers.php'>View Suppliers</a>
+                        </li>";
+                     }
+                  ?>
+
+                  <?php
+                     if($_SESSION['userlogin']['type'] == "supplier"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='add_product.php'>Add Products</a>
+                        </li>";
+                     }
+                  ?>
+
                   <?php
                    if($_SESSION['userlogin']['type'] == "supplier"){
                      echo "<li class='nav-item'>
-                     <a class='nav-link' href='edit_product.php'>My Products</a>
+                     <a class='nav-link' href='display_product.php'>My Products</a>
                      </li>";
                  }
                   
                   ?>
+
+
                   <?php
-                   if($_SESSION['userlogin']['type'] == "Admin"){
-                     echo "<li class='nav-item'>
-                     <a class='nav-link' href='edit_supplier.php'>My Suppliers</a>
-                     </li>";
-                 }
-                  
+                     if($_SESSION['userlogin']['type'] == "supplier"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='delete_product.php'>Delete Product</a>
+                        </li>";
+                     } 
                   ?>
-                  <?php
-                   if($_SESSION['userlogin']['type'] == "supplier"){
-                     echo "<li class='nav-item'>
-                     <a class='nav-link' href='delete_product.php'>Delete Product</a>
-                     </li>";
-                 }
-                  
+
+                 <?php
+                     if($_SESSION['userlogin']['type'] == "supplier"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='edit_product.php'>Edit Product</a>
+                        </li>";
+                     } 
                   ?>
+
                   <?php
-                   if($_SESSION['userlogin']['type'] == "Admin"){
-                     echo "<li class='nav-item'>
-                     <a class='nav-link' href='delete_supplier.php'>Delete Supplier</a>
-                     </li>";
-                 }
-                  
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='add_supplier.php'>Add Suppliers</a>
+                        </li>";
+                     }
+                  ?>
+                                
+                  <?php
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='delete_supplier.php'>Delete Supplier</a>
+                        </li>";
+                     }
+                  ?>
+                                    
+                  <?php
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='edit_supplier.php'>Edit Suppliers</a>
+                        </li>";
+                     }
                   ?>
                
                <li class="nav-item">

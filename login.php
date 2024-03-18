@@ -36,7 +36,7 @@
                   <div class="button">
                      <input type="submit" id= "login" name="button" value="Login">
                   </div>
-                  <div>Don't have an account? <a href = "/MaTracker/registration.php">Sigup now</a></div>
+                  <div>Don't have an account? <a href = "registration.php">Sigup now</a></div>
                </div>
          </div>
          </form>
@@ -70,7 +70,7 @@
                              
                              })
                              .then(function() {
-                                 window.location = "/MaTracker/index.php";
+                                 window.location = "index.php";
                                  });
                              
          

@@ -44,7 +44,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Supplier</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="styles.css">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
    </head>
    <body>
@@ -58,28 +59,35 @@
                <li class="nav-item active">
                   <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="add_product.php">Manage Products</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="add_supplier.php">Manage Suppliers</a>
-               </li>
-                  <?php
-                   if($_SESSION['userlogin']['type'] == "supplier"){
-                     echo "<li class='nav-item'>
-                     <a class='nav-link' href='edit_product.php'>My Products</a>
-                     </li>";
-                 }
-                  
+               <?php
+                     if($_SESSION['userlogin']['type'] == "User" or $_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='display_suppliers.php'>View Suppliers</a>
+                        </li>";
+                     }
                   ?>
-                  
+                <?php
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='add_supplier.php'>Add Suppliers</a>
+                        </li>";
+                     }
+                  ?>
+                                
                   <?php
-                   if($_SESSION['userlogin']['type'] == "Admin"){
-                     echo "<li class='nav-item'>
-                     <a class='nav-link' href='edit_supplier.php'>My Suppliers</a>
-                     </li>";
-                 }
-                  
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='delete_supplier.php'>Delete Supplier</a>
+                        </li>";
+                     }
+                  ?>
+                                    
+                  <?php
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='edit_supplier.php'>Edit Suppliers</a>
+                        </li>";
+                     }
                   ?>
                
                <li class="nav-item">
@@ -90,20 +98,22 @@
       </nav>
     <div class="container">
         <h1>Delete a Supplier</h1>
-        <br>
-        <h2>Please enter the name of the supplier that you want to delete:</h2>
-        <form action="" method="post" enctype="multipart/form-data">
-        <div class="form-outline">
+        <br> 
+        <form action="" method="post" enctype="multipart/form-data">    
+        <div class="form-outline" style="display: flex;  align-items: center;  flex-direction: column;">
+            <h5>Please enter the name of the supplier that you want to delete:</h5>
             <label for="product_name" class="form-label">Supplier Name</label>
             <input type="text" name="supplier_name" id="supplier_name" placeholder="e.g., Steel Co.S"
             autocomplete="off" required= "required"><br><br>
+            <div class="form-outline">
+            <input type="submit" name="delete-supplier" class="btn-primary" value="Save changes">
+        </div>
         </div>
         
         <!-- Edit Product Button -->
-        <div class="form-outline">
-            <input type="submit" name="delete-supplier" class="btn-primary" value="Save changes">
-        </div>
+        
         </form>
     </div>
+    <?php include("footer.php");?>
 </body>
 </html>

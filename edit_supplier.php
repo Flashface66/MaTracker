@@ -51,13 +51,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Supplier Information</title>
     <link rel="stylesheet" href="edit_supplier.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="add_product.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+         <img src="logo.png" alt="" class="logo">
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item active">
+                  <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+               </li>
+               <?php
+                     if($_SESSION['userlogin']['type'] == "User" or $_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='display_suppliers.php'>View Suppliers</a>
+                        </li>";
+                     }
+                  ?>
+                <?php
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='add_supplier.php'>Add Suppliers</a>
+                        </li>";
+                     }
+                  ?>
+                                
+                  <?php
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='delete_supplier.php'>Delete Supplier</a>
+                        </li>";
+                     }
+                  ?>
+                                    
+                  <?php
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='edit_supplier.php'>Edit Suppliers</a>
+                        </li>";
+                     }
+                  ?>
+               <li class="nav-item">
+                  <a class="nav-link" href="index.php?logout=true">Logout</a>
+               </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="search_product.php" method="post">
+               <input type="search" name="search_data" required class="form-control mr-sm-2" type="search" placeholder="Search for material" aria-label="Search for material">
+               <button class="btn btn-light my-2 my-sm-0" type="submit" name="search_data_product">Search</button>
+            </form>
+         </div>
+      </nav>
+
+    <div class = "container">
     <h1>Edit a Supplier</h1>
         <br>
-        <h2>Please re-enter the name of the supplier that you want to edit:</h2>    
+        
     <form action="" method="post" enctype="multipart/form-data">
     <div class="form-outline">
+            <h5>Please re-enter the name of the supplier that you want to edit:</h5>    
             <label for="supplier_name" class="form-label">Name of Supplier</label>
             <input type="text" name="supplier_name" id="supplier_name" placeholder="Enter Supplier Name"
             autocomplete="off" required= "required">
@@ -65,7 +122,7 @@
 
     <!-- Email -->
     <div class="form-outline">
-        <h2>Please enter the changes that you wish to make to the supplier:</h2>
+        <h5>Please enter the changes that you wish to make to the supplier:</h5>
         <label for="supplier_email" class="form-label">Email</label>
         <input type="text" name="supplier_email" id="supplier_email" placeholder="Enter Supplier Email"
         autocomplete="off" required="required">
@@ -112,11 +169,13 @@
         <input type="text" name="supplier_description" id="supplier_description" placeholder="Enter supplier description"
         autocomplete="off" required="required">
     </div>
-
+    <br>
     <!-- Edit Supplier Button -->
     <div class="form-outline">
-        <input type="submit" name="edit-supplier" class="btn" value="Edit Supplier">
+        <input type="submit" name="edit-supplier" class="btn-primary" value="Edit Supplier">
     </div>
     </form>
+    </div>
+    <?php include('footer.php');  ?>
 </body>
 </html>

@@ -4,32 +4,41 @@
    if(isset($_POST)){
        $email = $_POST['email'];
        $password = $_POST['password'];
-       $sql = "SELECT * FROM Users WHERE email = ?LIMIT 1";
-       $sql2 = "SELECT * FROM Suppliers WHERE SupplierEmail = ?LIMIT 1";
+       $sql = "SELECT *, 'User' as type FROM Users WHERE email = ? LIMIT 1";
+       $sql2 = "SELECT *, 'Supplier' as type FROM Suppliers WHERE SupplierEmail = ? LIMIT 1";
+       $sql3 = "SELECT *, 'Admin' as type FROM Admins WHERE AdminEmail = ? LIMIT 1"; // New query for Admins table
+       
        $stmtselect = $db->prepare($sql);
        $stmtselect2 = $db->prepare($sql2);
+       $stmtselect3 = $db->prepare($sql3); // Prepare statement for Admins
+
        $result = $stmtselect->execute([$email]);
+       $user = $stmtselect->fetch(PDO::FETCH_ASSOC);
+
        $result2 = $stmtselect2->execute([$email]);
+       $user2 = $stmtselect2->fetch(PDO::FETCH_ASSOC);
 
-   
-       if($result or $result2){
+       $result3 = $stmtselect3->execute([$email]); // Execute query for Admins
+       $user3 = $stmtselect3->fetch(PDO::FETCH_ASSOC);
 
-           $user = $stmtselect->fetch(PDO::FETCH_ASSOC);
-           $user2 = $stmtselect2->fetch(PDO::FETCH_ASSOC);
-           $isPasswordCorrect = password_verify($password, $user['password']);
-           $isPasswordCorrect2 = password_verify($password, $user2['SupplierPassword']);
-           if (($stmtselect->rowCount() > 0 and $isPasswordCorrect==1)){
-               $_SESSION['userlogin'] = $user;
-               echo "Successful Login";
-           }elseif(($stmtselect2->rowCount() > 0 and $isPasswordCorrect2==1)){
-                $_SESSION['userlogin'] = $user2;
-                echo "Successful Login";
-           }
-           else{
-               echo "Email or Password incorrect. Try again.";
-           }
-       }else{
-           echo "Errors while connecting to database";
+       // Determine which result is valid and set session variables accordingly
+       if($result && $stmtselect->rowCount() > 0 && password_verify($password, $user['password'])){
+           $_SESSION['userlogin'] = $user;
+           $_SESSION['userlogin']['type'] = 'User'; // Set type as User
+           echo "Successful Login as User";
+       }
+       elseif($result2 && $stmtselect2->rowCount() > 0 && password_verify($password, $user2['SupplierPassword'])){
+           $_SESSION['userlogin'] = $user2;
+           $_SESSION['userlogin']['type'] = 'supplier'; // Set type as Supplier
+           echo "Successful Login as Supplier";
+       }
+       elseif($result3 && $stmtselect3->rowCount() > 0 && password_verify($password, $user3['AdminPassword'])){
+           $_SESSION['userlogin'] = $user3;
+           $_SESSION['userlogin']['type'] = 'Admin'; // Set type as Admin
+           echo "Successful Login as Admin";
+       }
+       else{
+           echo "Email or Password incorrect. Try again.";
        }
    }
-   ?>
+?>

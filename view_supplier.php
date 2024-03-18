@@ -22,6 +22,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       <link rel="stylesheet" href="search_product.css">
+      <link rel="stylesheet" href="styles.css">
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <title>View Supplier</title>
@@ -34,23 +36,39 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-               <li class="nav-item active">
+               <li class="nav-item ">
                   <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="add_product.php">Manage Products</a>
                </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="add_supplier.php">Manage Suppliers</a>
-               </li>
-               </li>
+               <?php
+                     if($_SESSION['userlogin']['type'] == "User" or $_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='display_suppliers.php'>View Suppliers</a>
+                        </li>";
+                     }
+                  ?>
+                <?php
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='add_supplier.php'>Add Suppliers</a>
+                        </li>";
+                     }
+                  ?>
+                                
                   <?php
-                   if($_SESSION['userlogin']['type'] == "supplier"){
-                     echo "<li class='nav-item'>
-                     <a class='nav-link' href='edit_product.php'>My Products</a>
-                     </li>";
-                 }
-                  
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='delete_supplier.php'>Delete Supplier</a>
+                        </li>";
+                     }
+                  ?>
+                                    
+                  <?php
+                     if($_SESSION['userlogin']['type'] == "Admin"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='edit_supplier.php'>Edit Suppliers</a>
+                        </li>";
+                     }
                   ?>
                <li class="nav-item">
                   <a class="nav-link" href="index.php?logout=true">Logout</a>
@@ -91,8 +109,6 @@
             }
             ?>
       </div>
-      <div class="bg-primary p-3">
-         <p style="text-align:center">Designed for La Vonne Stephenson and Associates</p>
-      </div>
+         <?php include("footer.php");?>
    </body>
 </html>

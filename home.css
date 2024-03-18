@@ -52,7 +52,31 @@
     background: #58629b;
     cursor: pointer;
 }
-.logo{
-    width:7%;
-    height:7%;
+.navbar {
+    background-color: #007bff;
+    /* border-bottom: 3px solid #0056b3; */
+}
+
+.navbar .navbar-nav .nav-link {
+    color: black;
+    /* font-weight: bold; */
+}
+
+.navbar .navbar-brand, .navbar .navbar-nav .nav-item.active .nav-link {
+    color: #000000;
+}
+.footer {
+    text-align: center;
+    padding: 5rem;
+    background-color: #007bff;
+    color: rgb(0, 0, 0);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.logo {
+    height: 50px; /* Adjust based on your logo's size to reduce navbar height */
+    width: auto;
 }

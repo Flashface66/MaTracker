@@ -77,7 +77,7 @@
                              'type':'success'
                              
                              }).then(function() {
-                                 window.location = "/MaTracker/login.php";
+                                 window.location = "login.php";
                                  });
          
                          },

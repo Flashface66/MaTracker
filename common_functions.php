@@ -152,4 +152,38 @@
                
    
    }
+
+   function display_suppliers() {
+    global $db;
+
+    $stmt = $db->query("SELECT * FROM Suppliers");
+    while ($results = $stmt->fetch()) {
+        $supplier_name = htmlspecialchars($results['SupplierName']);
+        $supplier_description = htmlspecialchars($results['SupplierDescription']);
+        $supplier_email = htmlspecialchars($results['supplierEmail']);
+        $supplier_id = htmlspecialchars($results['Sid']); // Assuming 'Sid' is the column name for supplier ID
+
+        echo "<div >
+                <div class='card'>
+                <div class='card-body'>
+                <h5 class='card-title'>$supplier_name</h5>
+                <p class='card-text'>$supplier_description</p>
+                <p class='card-text'>Email: $supplier_email</p>";
+
+        // Modified button with 'param1' and 'param2'
+        echo "<a href='view_supplier.php?param1=$supplier_id&param2=$supplier_name' class='btn btn-secondary'>View Supplier</a> ";
+
+        // Check if the logged-in user is an Admin
+        if (isset($_SESSION['userlogin']) && $_SESSION['userlogin']['type'] == "Admin") {
+            echo "<a href='edit_supplier.php?Sid=$supplier_id' class='btn btn-primary'>Edit Supplier</a>";
+        }
+
+        echo "</div>
+              </div>
+              </div>";
+    }
+}
+
+
+
    ?>

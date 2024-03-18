@@ -56,7 +56,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="add_product.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
    </head>
    <body>
@@ -70,30 +70,39 @@
                <li class="nav-item active">
                   <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="add_product.php">Manage Products</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="add_supplier.php">Manage Suppliers</a>
-               </li>
+               <?php
+                     if($_SESSION['userlogin']['type'] == "supplier"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='add_product.php'>Add Products</a>
+                        </li>";
+                     }
+                  ?>
+
                   <?php
                    if($_SESSION['userlogin']['type'] == "supplier"){
                      echo "<li class='nav-item'>
-                     <a class='nav-link' href='edit_product.php'>My Products</a>
+                     <a class='nav-link' href='display_product.php'>My Products</a>
                      </li>";
                  }
                   
                   ?>
-                  
+
+
                   <?php
-                   if($_SESSION['userlogin']['type'] == "Admin"){
-                     echo "<li class='nav-item'>
-                     <a class='nav-link' href='edit_supplier.php'>My Suppliers</a>
-                     </li>";
-                 }
-                  
+                     if($_SESSION['userlogin']['type'] == "supplier"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='delete_product.php'>Delete Product</a>
+                        </li>";
+                     } 
                   ?>
-               
+
+                 <?php
+                     if($_SESSION['userlogin']['type'] == "supplier"){
+                        echo "<li class='nav-item'>
+                        <a class='nav-link' href='edit_product.php'>Edit Product</a>
+                        </li>";
+                     } 
+                  ?>
                <li class="nav-item">
                   <a class="nav-link" href="index.php?logout=true">Logout</a>
                </li>
@@ -103,9 +112,10 @@
     <div class="container">
         <h1>Edit a Product</h1>
         <br>
-        <h2>Please re-enter the name of the item that you want to edit:</h2>
+        
         <form action="" method="post" enctype="multipart/form-data">
         <div class="form-outline">
+            <h5>Please re-enter the name of the item that you want to edit:</h5>
             <label for="product_name" class="form-label">Product Name</label>
             <input type="text" name="product_name" id="product_name" placeholder="e.g., Concrete"
             autocomplete="off" required= "required"><br><br>
@@ -114,7 +124,7 @@
 
         <!-- Description -->
         <div class="form-outline">
-            <h2>Please enter the changes that wish to make to the item:</h2>
+            <h5>Please enter the changes that wish to make to the item:</h5>
             <label for="product_description" class="form-label">Product Description</label>
             <input type="text" name="product_description" id="product_description" placeholder="Enter product description"
             autocomplete="off" required="required"><br><br>
@@ -153,5 +163,6 @@
         </div>
         </form>
     </div>
+    <?php include('footer.php'); ?>                
 </body>
 </html>
