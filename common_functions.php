@@ -37,14 +37,15 @@
                $product_price = $results['product_price'];
                $product_unit = $results['product_unit'];
                $product_image = $results['product_image'];
-               echo "<div class='col-md-3 mb-2'>
+               $Supplier_name = $results['SupplierName'];
+               echo "<div '>
                <div class='card'>
                <img class='card-img-top' src='images/$product_image' alt='...'>
                <div class='card-body'>
                <h5 class='card-title'>$product_title</h5>
                <p class='card-text'>$product_description</p>
                <p class='card-text'>$ $product_price/$product_unit</p>
-               <a href='quoteform.php?param1=$product_title&param2=$product_description&param3=$product_price' class='btn btn-primary'>Generate Invoice</a>
+               <a href='quoteform.php?param1=$product_title&param2=$product_description&param3=$product_price&param4=$product_unit&param5=$Supplier_name' class='btn btn-primary'>Generate Invoice</a>
                </div>
                </div>
                </div>";
@@ -148,9 +149,6 @@
        }
    
                }
-   
-               
-   
    }
 
    function display_suppliers() {
@@ -162,13 +160,18 @@
         $supplier_description = htmlspecialchars($results['SupplierDescription']);
         $supplier_email = htmlspecialchars($results['supplierEmail']);
         $supplier_id = htmlspecialchars($results['Sid']); // Assuming 'Sid' is the column name for supplier ID
+        $supplier_num1 = $results['SupplierNum1'];
+        $supplier_num2 = $results['SupplierNum2'];
 
         echo "<div >
                 <div class='card'>
                 <div class='card-body'>
                 <h5 class='card-title'>$supplier_name</h5>
                 <p class='card-text'>$supplier_description</p>
-                <p class='card-text'>Email: $supplier_email</p>";
+                <p class='card-text'>Email: $supplier_email</p>
+                <p class='card-text'>Phone Number1: $supplier_num1</p>
+                <p class='card-text'>Phone Number2: $supplier_num2</p>";
+                
 
         // Modified button with 'param1' and 'param2'
         echo "<a href='view_supplier.php?param1=$supplier_id&param2=$supplier_name' class='btn btn-secondary'>View Supplier</a> ";
